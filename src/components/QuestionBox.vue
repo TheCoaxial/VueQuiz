@@ -22,6 +22,7 @@
     <b-button 
         variant="primary" 
         @click="submitAnswer"
+        :disabled="selectedIndex === null || answered"
         >
         Submit
         </b-button>
@@ -42,7 +43,9 @@ export default {
     data() {
         return {
             selectedIndex: null,
-            shuffledAnswers: []
+            correctIndex: null,
+            shuffledAnswers: [],
+            answered: false
         }
     },
     computed: {
@@ -57,6 +60,7 @@ export default {
             immediate: true,
             handler() {
                 this.selectedIndex = null
+                this.answered = false
                 this.shuffleAnswers()
             }
         }
@@ -76,6 +80,7 @@ export default {
             if(this.selectedIndex === this.correctIndex) {
                 isCorrect = true
             }
+            this.answered = true
 
             this.increment(isCorrect)
         }
