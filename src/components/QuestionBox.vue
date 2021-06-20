@@ -91,7 +91,8 @@ export default {
                 answerClass = 'selected'
             } else if(this.answered && this.correctIndex === index){
                 answerClass = 'correct'
-            } else if(this.answered && this.selectedIndex === index && this.correctIndex !== index) {
+            } else if(this.answered && this.selectedIndex === index && 
+            this.correctIndex !== index) {
                 answerClass = 'incorrect'
             }
 
