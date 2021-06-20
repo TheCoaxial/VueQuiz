@@ -19,7 +19,12 @@
     </b-list-group-item>
     </b-list-group>
 
-    <b-button variant="primary" href="#">Submit</b-button>
+    <b-button 
+        variant="primary" 
+        @click="submitAnswer"
+        >
+        Submit
+        </b-button>
     <b-button @click="next" variant="success" href="#">
         Next Question</b-button>
     </b-jumbotron>
@@ -31,7 +36,8 @@ import _ from 'lodash'
 export default {
     props: {
         currentQuestion: Object,
-        next: Function
+        next: Function,
+        increment: Function
     },
     data() {
         return {
@@ -54,12 +60,6 @@ export default {
                 this.shuffleAnswers()
             }
         }
-        
-        
-        // () {
-        //     this.selectedIndex = null
-        //     this.shuffleAnswers()
-        // }
     },
     methods: {
         selectAnswer(index) {
@@ -68,6 +68,16 @@ export default {
         shuffleAnswers() {
             let answers = [...this.currentQuestion.incorrect_answers, this.currentQuestion.correct_answer]
             this.shuffledAnswers = _.shuffle(answers)
+            this.correctIndex = this.shuffledAnswers.indexOf(this.currentQuestion.correct_answer)
+        },
+        submitAnswer(){
+            let isCorrect = false
+
+            if(this.selectedIndex === this.correctIndex) {
+                isCorrect = true
+            }
+
+            this.increment(isCorrect)
         }
     }
 
